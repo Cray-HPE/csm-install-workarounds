@@ -8,19 +8,21 @@ Before the PIT is rebooted to become m001 up to three steps need to be taken.
         pit# cp /var/www/ephemeral/configs/data.json ./data-bss.json 
         ```
    * Edit that file and make 2 changes:
-        1. Find the entry corresponding to ncn-m001 (you can search for `hostname`). Remove this line from the `runcmd` array:
+        1. Find the entry corresponding to ncn-m001 (you can search for `hostname`). 
+           **Note** there may be more than one entry for ncn-m001, make sure to find them all. 
+           Remove this line from the `runcmd` array:
           ```
           "/srv/cray/scripts/metal/set-dhcp-to-static.sh",
           ```
-        2. In the "Global" section update:
-          ```
-          "dns-server": "10.92.100.225 10.252.1.12",
-          ```
-
-          To (the only the IP of Unbound):
-          ```
-          "dns-server": "10.92.100.225",
-          ```
+        2. In the "Global" section update: 
+           ```text
+            "dns-server": "10.92.100.225 10.252.1.12",`
+            ```
+    
+           To (only the IP of Unbound, remove others if they are there):
+           ```text
+            "dns-server": "10.92.100.225",
+            ```
    * Ensure when you do the handoff step you give the path to this patched file and not the one in the configs directory.
 2. Before the PIT is rebooted into m001, the KEA pod in the services namespace needs restarted (**note** these commands be ran on the PIT or m002):
     > This is to help prevent issues with m001 PXE booting
