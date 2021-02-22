@@ -25,7 +25,7 @@ cp -vr workarounds ${RPM_BUILD_ROOT}/opt/cray/csm
 
 %files
 %license LICENSE
-%defattr(644,root,root)
+%defattr(775,root,root)
 
 /opt/cray/csm/workarounds
 
