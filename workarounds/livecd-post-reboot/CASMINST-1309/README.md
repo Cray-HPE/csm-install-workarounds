@@ -16,7 +16,12 @@ Address: 10.254.1.13
 
 > The following commands expect the cray cli to already be initialized by the `cray init` command
 
-1. Get an API Token
+1. Scale KEA down. This will prevent KEA from putting back any MAC addresses that are removed in the next steps.
+    ```bash
+    ncn-m001# kubectl scale -n services deployments/cray-dhcp-kea --replicas=0
+    ```
+
+2. Get an API Token
     ```bash
     ncn-m001# export TOKEN=$(curl -s -S -d grant_type=client_credentials \
                           -d client_id=admin-client \
@@ -24,7 +29,7 @@ Address: 10.254.1.13
                           https://api-gw-service-nmn.local/keycloak/realms/shasta/protocol/openid-connect/token | jq -r '.access_token')
     ```
 
-2. Determine the BMC xnames for the management NCNs:
+3. Determine the BMC xnames for the management NCNs:
     ```bash
     ncn-m001# curl -s -k -H "Authorization: Bearer ${TOKEN}" \
         https://api-gw-service-nmn.local/apis/sls/v1/search/hardware?extra_properties.Role=Management \
@@ -46,7 +51,7 @@ Address: 10.254.1.13
     ```
 
 
-2. For each BMC xname found in the step above query the HSM ethernet interfaces table. The BMC associated with ncn-m001 should be skipped, as it will not have not have been discovered by HSM. 
+4. For each BMC xname found in the step above query the HSM ethernet interfaces table. The BMC associated with ncn-m001 should be skipped, as it will not have not have been discovered by HSM. 
     
     Replace `x3000c0s4b0` with the xname of the NCN BMC you wish to query. __Note__ the BMC xname should end with `b0`, do __NOT__ use the node xname that ends with `n0`.
     ```bash
@@ -66,9 +71,9 @@ Address: 10.254.1.13
     {"ID":"9440c9376761","Type":"NodeBMC","IPAddresses":[]}
     ```
 
-2. SSH to all the affected NCNs and run `ipmitool mc reset cold`. This will force the BMC to revert back to its statically assigned IP address, after it resets.
+5. SSH to all the affected NCNs and run `ipmitool mc reset cold`. This will force the BMC to revert back to its statically assigned IP address, after it resets.
 
-3. For each affected NCN BMCs delete their MAC address is associated with an IP address.
+6. For each affected NCN BMCs delete their MAC address is associated with an IP address.
     > Replace `9440c9376760` with the normalized MAC address found in the command above
     ```
     ncn-m001# cray hsm inventory ethernetInterfaces delete 9440c9376760
@@ -76,7 +81,12 @@ Address: 10.254.1.13
     message = "deleted 1 entry"
     ```
 
-4. Wait a few minutes for DNS to settle and only 1 IP address should be present for each of the affected BMC for both their xname hostname and alias. Verify this for all affected BMCs.
+7. Scale KEA back up to 1 replica.
+    ```bash
+    ncn-m001# kubectl scale -n services deployments/cray-dhcp-kea --replicas=1
+    ```
+
+8. Wait a few minutes for DNS to settle and only 1 IP address should be present for each of the affected BMC for both their xname hostname and alias. Verify this for all affected BMCs.
     The NCN BMC xname hostname should only have 1 address:
     ```bash
     ncn-m001# nslookup x3000c0s4b0
@@ -97,7 +107,7 @@ Address: 10.254.1.13
     Address: 10.254.1.13
     ```
 
-5. All of the affected BMCs should now be pingable by its xname hostname and NCN BMC alias. Verify this for all affected BMCs.
+9. All of the affected BMCs should now be pingable by its xname hostname and NCN BMC alias. Verify this for all affected BMCs.
     ```bash
     ncn-m001# ping x3000c0s4b0
     PING x3000c0s4b0.hmn (10.254.1.13) 56(84) bytes of data.
