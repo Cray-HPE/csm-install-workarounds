@@ -26,9 +26,9 @@ Address: 10.254.1.13
                           https://api-gw-service-nmn.local/keycloak/realms/shasta/protocol/openid-connect/token | jq -r '.access_token')
     ```
 
-2. Run the `CASMINST-1570.sh` script in this directory:
+2. Run the `CASMINST-1570.sh` script:
     ```bash
-    ncn-m001:/opt/cray/csm/workarounds/livecd-post-reboot/CASMINST-1309# ./dupe-ip-resolve.sh
+    ncn-m001:# /opt/cray/csm/workarounds/livecd-post-reboot/CASMINST-1309/CASMINST-1309.sh
     deployment.apps/cray-dhcp-kea restarted
     Sending cold reset to ncn-m002 BMC...
     Sent cold reset command to MC
