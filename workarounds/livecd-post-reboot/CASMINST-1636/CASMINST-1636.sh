@@ -51,7 +51,7 @@ do
 		        echo "restarting may disconnect your connection, run following command:"
 		        echo "/usr/sbin/wicked ifreload vlan002"
 	        fi
-    	        if [[ "$vlan_name" != "nmn" ]]; then
+    	    if [[ "$vlan_name" != "nmn" ]]; then
 	            /usr/sbin/wicked ifreload $vlan
 	        fi
 	else

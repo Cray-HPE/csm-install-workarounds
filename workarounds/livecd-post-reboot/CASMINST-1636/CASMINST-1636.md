@@ -1,5 +1,6 @@
 # When Wiping and Rejoining A Previously Joined NCN
 ### **Use script in folder or apply with manual steps below**
+### **The scripts can be run on the NCN that has been booted back up**
 ### **Script name: CASMINST-1636.sh**
 
 - When the node boots into its image.  The IPs will be incorrect and will need to manually update the ifcfg files
