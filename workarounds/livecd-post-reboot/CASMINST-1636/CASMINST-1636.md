@@ -1,5 +1,7 @@
 # When Wiping and Rejoining A Previously Joined NCN
 ###**Use script in folder or apply with manual steps below**
+###**Script name: CASMINST-1636.sh**
+
 - When the node boots into its image.  The IPs will be incorrect and will need to manually update the ifcfg files
 - You will need to do a dig.
     - Example for NCN-W002
@@ -24,11 +26,11 @@
     ```
     VLAN ID to Name mapping
 
-    | VLAN ID  | Name|
-    |----------|-----|
-    | 002      | NMN |
-    | 004      | HMN |
-    | 007      | CAN |
+     VLAN ID  | Name
+    ----------|-----
+     002      | NMN 
+     004      | HMN 
+     007      | CAN 
   
 - Check each ifcfg-vlan00[2,4,7] to make sure the appropiate IP has been configured in the file.  If the IP is not correct, update the file and save.
     - **In most cases ifcfg-vlan002 should have the expected IP**
