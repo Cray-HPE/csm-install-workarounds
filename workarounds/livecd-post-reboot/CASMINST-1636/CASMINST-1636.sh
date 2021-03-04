@@ -1,6 +1,6 @@
 #!/bin/bash
 if [[ "$1" == "-h" ]] || [[ "$1" == "--help" ]] || [[ -z "$1" ]]; then
-    echo "usuage is "
+    echo "usage is "
     echo "CASMINST-1636.sh ncn-[m/w/s]-##"
     exit 0
 fi
