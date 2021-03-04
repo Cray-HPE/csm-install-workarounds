@@ -32,6 +32,16 @@ do
     echo "Information on:"
     echo "$vlan $vlan_name"
     echo "dns $ip_dns ifcfg $ip_ifcfg"
+    # check to make sure required variables are not null
+    if [[ -z "$ip_dns" ]] || [[ -z "$ip_ifcfg" ]] || [[ -z "$subnet_ifcfg" ]];then
+        echo "**************************************************"
+        echo "Missing data and cannot move forward with script"
+        echo "ip_dns is $ip_dns"
+        echo "ip_ifcfg is $ip_ifcfg"
+        echo "subnet_ifcfg is $subnet_ifcfg"
+        exit 1
+    fi
+
     if [[ "$ip_ifcfg" != "$ip_dns" ]]; then
         echo "ifcfg-$vlan needs an IP update"
         sed -i "/IPADDR/ d" "$path/ifcfg-$vlan"
