@@ -1,5 +1,5 @@
 # When Wiping and Rejoining A Previously Joined NCN
-
+###**Use script in folder or apply with manual steps below**
 - When the node boots into its image.  The IPs will be incorrect and will need to manually update the ifcfg files
 - You will need to do a dig.
     - Example for NCN-W002
