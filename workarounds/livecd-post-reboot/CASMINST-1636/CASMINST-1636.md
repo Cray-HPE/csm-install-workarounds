@@ -23,12 +23,12 @@
     ncn-m001:~ # 
     ```
     VLAN ID to Name mapping
-  
-    | VLAN ID  | Name|          
+
+    | VLAN ID  | Name|
     |----------|-----|
-    | 002      | NMN |  
-    | 004      | HMN |    
-    | 007      | CAN | 
+    | 002      | NMN |
+    | 004      | HMN |
+    | 007      | CAN |
   
 - Check each ifcfg-vlan00[2,4,7] to make sure the appropiate IP has been configured in the file.  If the IP is not correct, update the file and save.
     - **In most cases ifcfg-vlan002 should have the expected IP**
