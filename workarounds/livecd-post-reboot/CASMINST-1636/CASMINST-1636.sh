@@ -1,7 +1,8 @@
 #!/bin/bash
-if [[ "$1" == "-h" ]] || [[ "$1" == "-h" ]]; then
+if [[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]; then
     echo "usuage is "
     echo "CASMINST-1636.sh ncn-[m/w/s]-##"
+fi
 
 host=$1
 #path="/etc/sysconfig/network"
