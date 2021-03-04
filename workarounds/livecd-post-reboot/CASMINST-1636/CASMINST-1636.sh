@@ -33,7 +33,7 @@ do
     echo "$vlan $vlan_name"
     echo "dns $ip_dns ifcfg $ip_ifcfg"
     # check to make sure required variables are not null
-    if [[ -z "$ip_dns" ]] || [[ -z "$ip_ifcfg" ]] || [[ -z "$subnet_ifcfg" ]];then
+    if [[ -z "$ip_dns" ]] || [[ -z "$ip_ifcfg" ]] || [[ -z "$subnet_ifcfg" ]]; then
         echo "**************************************************"
         echo "Missing data and cannot move forward with script"
         echo "ip_dns is $ip_dns"
@@ -51,7 +51,7 @@ do
 		        echo "restarting may disconnect your connection, run following command:"
 		        echo "/usr/sbin/wicked ifreload vlan002"
 	        fi
-    	        if [[ "$vlan_name" != "nmn" ]];then
+    	        if [[ "$vlan_name" != "nmn" ]]; then
 	            /usr/sbin/wicked ifreload $vlan
 	        fi
 	else
