@@ -25,7 +25,7 @@
     VLAN ID to Name mapping
   
     | VLAN ID  | Name|          
-    | -------- |-----|
+    |----------|-----|
     | 002      | NMN |  
     | 004      | HMN |    
     | 007      | CAN | 
