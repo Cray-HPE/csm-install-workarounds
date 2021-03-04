@@ -1,12 +1,13 @@
 #!/bin/bash
-if [[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]; then
+if [[ "$1" == "-h" ]] || [[ "$1" == "--help" ]] || [[ -z "$1" ]]; then
     echo "usuage is "
     echo "CASMINST-1636.sh ncn-[m/w/s]-##"
+    exit 0
 fi
 
 host=$1
-#path="/etc/sysconfig/network"
-path="./"
+path="/etc/sysconfig/network"
+
 # list of vlans
 vlan_id="vlan007 vlan004 vlan002"
 
@@ -32,17 +33,19 @@ do
     echo "$vlan $vlan_name"
     echo "dns $ip_dns ifcfg $ip_ifcfg"
     if [[ "$ip_ifcfg" != "$ip_dns" ]]; then
-        echo "$subnet_ifcfg needs an IP update"
+        echo "ifcfg-$vlan needs an IP update"
         sed -i "/IPADDR/ d" "$path/ifcfg-$vlan"
         echo "IPADDR='$ip_dns/$subnet_ifcfg'" >> "$path/ifcfg-$vlan"
-	        if [[ "$vlan" == 'nmn' ]]; then
+	        if [[ "$vlan_name" == "nmn" ]]; then
 		        echo "ifcfg-vlan002 was updated and needs to be restarted"
-		        echo "restarting may disconnect your connection"
-		        echo "wicked ifreload vlan002"
-    	    else
-	            echo "wicked ifreload $vlan"
+		        echo "restarting may disconnect your connection, run following command:"
+		        echo "/usr/sbin/wicked ifreload vlan002"
+	        fi
+    	        if [[ "$vlan_name" != "nmn" ]];then
+	            /usr/sbin/wicked ifreload $vlan
 	        fi
 	else
 	    echo "IP configured in ifcfg-$vlan matches dns"
     fi
+    echo ""
 done
