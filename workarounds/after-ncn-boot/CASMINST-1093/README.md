@@ -13,7 +13,7 @@ If the nodes exhibit afflictions such as:
     inet6 fe80::1602:ecff:feda:b998/64 scope link
     ```
 
-  This step only needs to be done once even if more than one node is impacted.
+  This step usually only needs to be done once even if more than one node is impacted.
     
 2. Use conman to connect to the afflicted node's console, and execute the steps below from the node's console:
     ```bash
