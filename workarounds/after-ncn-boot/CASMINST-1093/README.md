@@ -5,12 +5,17 @@ If the nodes exhibit afflictions such as:
 - no route (`ip r` returns no `default` route)
 
 ### Procedure
-1. First, restart the Basecamp service on the PIT (this only needs to be done once even if more than one node are impacted):
+1. First, restart the Basecamp service on the PIT and determine the PIT node's NMN (VLAN 2) IP address. In the output below is it `10.252.1.12`:
     ```bash
     pit# systemctl restart basecamp
+    pit# ip addr show vlan002 | grep inet
+    inet 10.252.1.12/17 brd 10.252.127.255 scope global vlan002
+    inet6 fe80::1602:ecff:feda:b998/64 scope link
     ```
 
-2. Use conman to connect to the afflicted node's console, and execute the steps below from the node's console
+  This step usually only needs to be done once even if more than one node is impacted.
+    
+2. Use conman to connect to the afflicted node's console, and execute the steps below from the node's console:
     ```bash
     pit# conman -j ncn-w001-mgmt
     ```
@@ -18,14 +23,7 @@ If the nodes exhibit afflictions such as:
 3. Next, verify that valid data is returned for the afflicted node from Basecamp (the output should contain information 
   specific to the afflicted node like the hostname):
 
-    First determine the PIT node's NMN (VLAN 2) IP address, in the output below is it `10.252.1.12`.
-    ```bash
-    pit# ip addr show vlan002 | grep inet
-    inet 10.252.1.12/17 brd 10.252.127.255 scope global vlan002
-    inet6 fe80::1602:ecff:feda:b998/64 scope link
-    ```
-
-    Next verify valid data is returned from Basecamp from the afflicted node:
+    Verify valid data is returned from Basecamp from the afflicted node, using the IP address found in step 1:
     ```bash
     ncn# curl http://10.252.1.12:8888/user-data
     ```
