@@ -2,11 +2,7 @@
 
 Users will need to add permission for the cray-cfs role in order for CFS (and more specifically, AEE) to read secrets out of the services namespace.
 
-On a master or worker node with access to kubectl; modify
-```kubectl get role cray-cfs -n services -o yaml
-```
-
-This is best done by adjusting cray-cfs role to include a more up-to-date set of permissions:
+This is best done by adjusting cray-cfs role to include a more up-to-date set of permissions from a master node:
 ```
 echo '''apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
