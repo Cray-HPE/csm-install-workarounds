@@ -2,6 +2,14 @@
 # This is a workaround for CASMINST-1072.  It sets up a modified kdump initrd
 set -euo pipefail
 
+echo "Checking compatibility..."
+if [[ $HOSTNAME =~ ^ncn-w.* ]]; then
+  echo "OK"
+else
+  echo "This workaround script should only be run on k8s worker nodes."
+  exit 1
+fi
+
 # Exclude mellanox drivers, which cause OOM errors
 echo "Setting kdump kernel parameters..."
 sed -i 's/^\(KDUMP_COMMANDLINE_APPEND\)=.*$/\1=\"irqpoll nr_cpus=1 selinux=0 reset_devices cgroup_disable=memory mce=off numa=off udev.children-max=2 acpi_no_memhotplug rd.neednet=1 rd.shell panic=10 nohpet nokaslr metal.debug=0 transparent_hugepage=never rd.driver.blacklist=mlx5_core,mlx5_ib\"/' /etc/sysconfig/kdump
