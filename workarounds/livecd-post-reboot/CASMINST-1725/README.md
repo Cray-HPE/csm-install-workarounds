@@ -1,6 +1,6 @@
-# CASMINST-1725 (child of CASMINST-1706)
+# CASMINST-1725
 
-HSN interfaces are seen with illegal/non-BIOSDEVNAME interface aliases:
+Fix HSN udev rules on nodes afflicted with non-BIOSDEVNAME nodes.
 
 ### Test for Bug Existence
 
@@ -25,31 +25,8 @@ ncn# dmesg | grep rename
 - `ens1` or `ens2`
 - `enp`
 
-### Cause
+## Directions
 
-udev rules are overridden by `82-net-setup-link.rules`, that takes precedence to our `80-ifname.rules`.
+On ncn-m001, run the `casminst-1725.sh` script.
 
-### Workaround Steps
-
-1. Down the interface(s):
-    ```bash
-    ncn# ip l s ens1 down
-    ncn# ip l s ens2 down
-    ```
-2. Rename the interface: 
-    ```bash
-    ncn# ip l s ens1 name hsn0
-    ncn# ip l s ens2 name hsn1
-    ```
-3. Up the interface(s):
-   ```bash
-   ncn# ip l s hsn0 up
-   ncn# ip l s hsn1 up
-   ```
-4. Set persistence, so the names stick on the next reboot:
-   ```bash
-   ncn# rules=/etc/udev/rules.d/*ifname.rules
-   ncn# mv $rules /etc/udev/rules.d/98-ifname.rules
-   ```
-
-Done.
+When the script is re-ran it will have a few errors, but it will show that the file was already copied.
