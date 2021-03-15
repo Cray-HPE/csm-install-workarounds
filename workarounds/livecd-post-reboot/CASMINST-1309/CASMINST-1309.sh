@@ -18,10 +18,17 @@ bmcs=$(curl -s -k -H "Authorization: Bearer ${TOKEN}" https://api-gw-service-nmn
 
 # Now delete all the BMC entries in EthernetInterfaces with an IP present.
 for bmc in $bmcs; do
-  bad_ips=$(cray hsm inventory ethernetInterfaces list --component-id $bmc --format json | jq -r '.[] | ."IPAddresses" | .[] | ."IPAddress"')
+  bad_ips=$(curl -s -k -H "Authorization: Bearer ${TOKEN}" "https://api-gw-service-nmn.local/apis/smd/hsm/v2/Inventory/EthernetInterfaces?ComponentID=$bmc" | jq -r '.[] | ."IPAddresses" | .[] | ."IPAddress"')
   for ip in $bad_ips; do
-    id=$(cray hsm inventory ethernetInterfaces list --ip-address $ip --format=json | jq -r '.[] | ."ID"')
-    echo "Deleting $id from EthernetInterfaces"...
-    cray hsm inventory ethernetInterfaces delete $id
+    id=$(curl -s -k -H "Authorization: Bearer ${TOKEN}" "https://api-gw-service-nmn.local/apis/smd/hsm/v2/Inventory/EthernetInterfaces?IPAddress=$ip" | jq -r '.[] | ."ID"')
+
+    # Make sure ID isn't blank.
+    if [ -z "$id" ]
+    then
+      echo "$id blank when trying to find an owner for IP $ip!"
+    else
+      echo "Deleting $id from EthernetInterfaces"...
+      curl -X DELETE -s -k -H "Authorization: Bearer ${TOKEN}" "https://api-gw-service-nmn.local/apis/smd/hsm/v2/Inventory/EthernetInterfaces/$id" | jq
+    fi
   done
 done
