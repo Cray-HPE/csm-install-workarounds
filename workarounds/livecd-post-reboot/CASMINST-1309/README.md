@@ -1,6 +1,6 @@
 # WORKAROUND: NCN BMCs receiving alternate IP address from DHCP
 
-At the conclusion of the CSM install, there is an issue where the management NCN BMCs could have both a static IP and a 
+At the conclusion of the CSM install, there is an issue where the management NCN BMCs could have both a static IP, and a 
 DHCP assigned IP address. This affects our ability to power cycle management NCNs via CAPMC and apply firmware changes 
 via FAS. The following temporary procedure corrects this until a permanent fix is in place.
 
@@ -16,7 +16,7 @@ Name:	ncn-w001-mgmt
 Address: 10.254.1.13
 ```
 
-> The following commands expect the cray cli to already be initialized by the `cray init` command
+This procedure is always safe to run.
 
 1. Get an API Token
     ```bash
@@ -26,7 +26,7 @@ Address: 10.254.1.13
                           https://api-gw-service-nmn.local/keycloak/realms/shasta/protocol/openid-connect/token | jq -r '.access_token')
     ```
 
-2. Run the `CASMINST-1570.sh` script:
+2. Run the `CASMINST-1309.sh` script:
     ```bash
     ncn-m001# /opt/cray/csm/workarounds/livecd-post-reboot/CASMINST-1309/CASMINST-1309.sh
     deployment.apps/cray-dhcp-kea restarted
