@@ -2,7 +2,7 @@
 
 The NMN and UAI Macvlan subnets have overlapping subnets with the same VLanID
 
-1. Go to the directory where CSI generated its configs. This will be under `/mnt/pitdata/prep/${SYSTEM_NAME}"
+1. Go to the directory where CSI generated its configs. This will be under `"/mnt/pitdata/prep/${SYSTEM_NAME}"`
     > Ensure that the environment variable `SYSTEM_NAME` is set
     ```
     cd /mnt/pitdata/prep/${SYSTEM_NAME}
