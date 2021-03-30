@@ -1,4 +1,4 @@
-# CASMINST-1806
+# CASMINST-1805
 
 This disables the fstrim crontab on all nodes, in an effort to bypass a
 firmware crash condition.
@@ -7,7 +7,7 @@ firmware crash condition.
 
 Run the script on ncn-m001:
 ```bash
-./casminst-1806.sh
+./casminst-1805.sh
 ```
 
 ## Expected output:
