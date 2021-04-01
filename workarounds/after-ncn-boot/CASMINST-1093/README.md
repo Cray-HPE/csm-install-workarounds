@@ -5,52 +5,24 @@ If the nodes exhibit afflictions such as:
 - no route (`ip r` returns no `default` route)
 
 ### Procedure
-1. First, restart the Basecamp service on the PIT and determine the PIT node's NMN (VLAN 2) IP address. In the output below is it `10.252.1.12`:
+1. First, restart the Basecamp service on the PIT
     ```bash
     pit# systemctl restart basecamp
-    pit# ip addr show vlan002 | grep inet
-    inet 10.252.1.12/17 brd 10.252.127.255 scope global vlan002
-    inet6 fe80::1602:ecff:feda:b998/64 scope link
     ```
 
   This step usually only needs to be done once even if more than one node is impacted.
-    
+
 2. Use conman to connect to the afflicted node's console, and execute the steps below from the node's console:
     ```bash
     pit# conman -j ncn-w001-mgmt
     ```
 
-3. Next, verify that valid data is returned for the afflicted node from Basecamp (the output should contain information 
-  specific to the afflicted node like the hostname):
-
-    Verify valid data is returned from Basecamp from the afflicted node, using the IP address found in step 1:
+3. Apply fix to the retry-ci.sh script on the afflicted node.
     ```bash
-    ncn# curl http://10.252.1.12:8888/user-data
-    ```
+    ncn# sed -i 's/set-dhcp-to-static\.done/set-dhcp-to-static\.sh/g' /srv/cray/scripts/metal/retry-ci.sh 
+    ```    
 
-    Output similar to the following is expected:
-    ```bash
-    ncn# curl http://10.252.1.12:8888/user-data
-    #cloud-config
-    hostname: ncn-w001
-    local_hostname: ncn-w001
-    mac0:
-      gateway: 10.252.0.1
-      ip: ""
-      mask: 10.252.2.0/23
-    runcmd:
-    - /srv/cray/scripts/metal/set-host-records.sh
-    - /srv/cray/scripts/metal/set-dhcp-to-static.sh
-    - /srv/cray/scripts/metal/set-dns-config.sh
-    - /srv/cray/scripts/metal/set-ntp-config.sh
-    - /srv/cray/scripts/metal/set-bmc-bbs.sh
-    - /srv/cray/scripts/metal/install-bootloader.sh
-    - /srv/cray/scripts/common/update_ca_certs.py
-    - /srv/cray/scripts/common/kubernetes-cloudinit.sh
-    ```
-
-    
-4. Finally, run the following script from the afflicted node **(but only in either of those circumstances)**.
+4. Finally, run the following script from the afflicted node **(but only in one of the above circumstances)**.
     ```bash
     ncn# /srv/cray/scripts/metal/retry-ci.sh
     ```
