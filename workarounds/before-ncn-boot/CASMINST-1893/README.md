@@ -1,8 +1,8 @@
 # CASMINST-1893
 
-1. on your pit node edit /var/www/ephemeral/config/data.json
+1. on your pit node edit /var/www/ephemeral/configs/data.json
 2. update the value for "num_storage_nodes" to be the total amount of utility storage nodes installed
-   1. This data can be found in the your ncn_metadata.csv file
+   1. This data can be found in the your /var/www/ephemeral/prep/ncn_metadata.csv file
 
 ## Example
 

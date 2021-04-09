@@ -1,7 +1,7 @@
 # CASMINST-1915 WAR - Part 1
 ## Description
 There is a known issue with the CSI tool when generating configuration files for the system where it may not respect the user
-provided prefix to HSM SubRole mappings defined in the systems `application_node_config.yaml` file.
+provided prefix to HSM Subrole mappings defined in the systems `application_node_config.yaml` file.
 
 One example of this problem are when LNetRouter Application Nodes getting accidentally treated as UAN Application Nodes.
 
@@ -26,7 +26,7 @@ UAN application nodes (or nothing has been found) the rest of this WAR can be sk
   lnet01
   ```
 
-2. Next modify `hmn_connections.json` for each node that is not expected become an UAN Application Node ass the `war-` prefix to the value in its `Source` field.
+2. Next modify `hmn_connections.json`. For each node that is not expected become an UAN Application Node, add the `war-` prefix to the value in its `Source` field.
 
   For example, the following is for `lnet01`:  
   ```json
