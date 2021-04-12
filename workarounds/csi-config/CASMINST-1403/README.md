@@ -57,12 +57,12 @@ spec:
     ```
 2. Copy off the original `customizations.yaml` file
     ```bash
-    # cp customizations.yaml customizations.yaml.original
+    # cp customizations.yaml customizations.yaml.pre-CASMINST-1403
     ```
 3. Edit `customizations.yaml` to make the previously-described change.
 4. Compare the edited `customizations.yaml` file with the original:
     ```bash
-    # diff customizations.yaml customizations.yaml.orig
+    # diff customizations.yaml customizations.yaml.pre-CASMINST-1403
     46a47,48
     >     - dst: 10.252.0.0/17
     >       gw: 10.252.0.1

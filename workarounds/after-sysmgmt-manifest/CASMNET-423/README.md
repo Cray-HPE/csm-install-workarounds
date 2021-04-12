@@ -1,6 +1,6 @@
 # Adding UAN CAN IPs to IP Reservations in SLS
 
-Adding UAN CAN IPs to IP Reservations in SLS will propogate the data needed for DNS.
+Adding UAN CAN IPs to IP Reservations in SLS will propagate the data needed for DNS.
 
 1. Get the CAN network SLS data 
    ```bash
@@ -22,7 +22,7 @@ Adding UAN CAN IPs to IP Reservations in SLS will propogate the data needed for 
             "Name": "uan10000"
           }
    ```
-   **NOTE:** the **-can** goes into the **ALiases** and **hostname** goes in **Name**
+   **NOTE:** the **-can** goes into the **Aliases** and **hostname** goes in **Name**
 3. After adding all the entries desired.  Upload CAN.json to SLS
    ```bash
    curl -s -k -H "Authorization: Bearer ${TOKEN}" --header "Content-Type: application/json" --request PUT --data @CAN.json https://api_gw_service.local/apis/sls/v1/networks/CAN 
@@ -50,3 +50,4 @@ Adding UAN CAN IPs to IP Reservations in SLS will propogate the data needed for 
    Name:	uan10000.can
    Address: 10.103.13.222
    ```
+   
