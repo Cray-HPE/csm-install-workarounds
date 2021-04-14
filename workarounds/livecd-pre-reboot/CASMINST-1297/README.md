@@ -2,23 +2,7 @@
 
 Before the PIT is rebooted to become m001 up to three steps need to be taken.
 
-1. **Before** running `csi handoff bss-metadata` as instructed in 007-CSM-INSTALL-REBOOT:
-    * Take a copy of `data.json`:
-        ```bash
-        pit# cp /var/www/ephemeral/configs/data.json ./data-bss.json 
-        ```
-   * Edit that file and make the following change:
-        * In the "Global" section update: 
-           ```text
-            "dns-server": "10.92.100.225 10.252.1.12",`
-            ```
-    
-           To (only the IP of Unbound, remove others if they are there):
-           ```text
-            "dns-server": "10.92.100.225",
-            ```
-   * Ensure when you do the handoff step you give the path to this patched file and not the one in the configs directory.
-2. Before the PIT is rebooted into m001, the KEA pod in the services namespace needs restarted (**note** these commands be ran on the PIT or m002):
+1. Before the PIT is rebooted into m001, the KEA pod in the services namespace needs restarted (**note** these commands be ran on the PIT or m002):
     > This is to help prevent issues with m001 PXE booting
 
     Determine the KEA pod name:
