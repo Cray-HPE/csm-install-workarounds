@@ -9,7 +9,7 @@ These changes are synced to each nodes boot folder on the PIT. This is all done 
 If you want to verify the change is in place, you can run:
 
 ```bash
-grep --color 'metal.disk' /var/www/ncn-*/script.ipxe
+pit# grep --color 'metal.disk' /var/www/ncn-*/script.ipxe
 ```
 
 and verify these two values are set as below:
