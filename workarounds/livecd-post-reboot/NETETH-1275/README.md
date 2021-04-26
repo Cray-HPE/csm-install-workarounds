@@ -5,11 +5,12 @@ on HSN devices.
 
 ## Directions
 
-Run `NETETH-1275.sh` on m001
+Run `NETETH-1275.sh` on m001. You must run the script from the NETETH-1275 directory.
 
 ## Expected Output
 
 ```bash
+ncn-m001 # cd /opt/cray/csm/workarounds/livecd-post-reboot/NETETH-1275
 ncn-m001 # ./NETETH-1275.sh
 limit_to_hsn.sh                                  100%  556   738.1KB/s   00:00
 limit_to_hsn.sh                                  100%  556   519.8KB/s   00:00
