@@ -1,7 +1,7 @@
 ## CASMINST-1093 cloud-init failure/race-condition
 If the nodes exhibit afflictions such as:
 - no hostname (or a hostname of `ncn`)
-- `mgmt0` or `mgmt1` does not indicate they exist in `bond0`, or has a mis-matching MTU of `1500` to the bond's members
+- `mgmt0` or `mgmt1` does not indicate they exist in `bond0`, or has a mismatching MTU of `1500` to the bond's members
 - no route (`ip r` returns no `default` route)
 
 ### Procedure
