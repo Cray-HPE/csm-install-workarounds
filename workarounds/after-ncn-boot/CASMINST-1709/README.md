@@ -8,7 +8,7 @@ The best way to do this depends on which stage you are in during the installatio
 
 ## after-ncn-boot 
 
-Run the following command *from ncn-m002*.   ncn-m002 will have the SSH keys installed for all masters, workers, and storage except for the PIT.
+Run the following command **from ncn-m002**.   ncn-m002 will have the SSH keys installed for all masters, workers, and storage except for the PIT.
 
 ```bash
 ncn-m002# for i in $(grep -oP 'ncn-\w\d+' /etc/hosts | sort -u | grep -v m001);do ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ${i} "systemctl start goss-servers";done 

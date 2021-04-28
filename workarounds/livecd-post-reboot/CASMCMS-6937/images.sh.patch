@@ -1,0 +1,10 @@
+--- image-recipe-orig/images.sh	2021-02-25 22:10:19.737729755 +0000
++++ image-recipe/images.sh	2021-04-28 16:14:15.062241874 +0000
+@@ -65,6 +65,6 @@
+  --no-hostonly \
+  --no-hostonly-cmdline \
+  --add-drivers 'squashfs overlay' \
+- --add 'network nfs crayfs' \
++ --add 'network' \
+  --kver "${kernel_module_version}"-default -I '/bin/grep' \
+  --xz -f /boot/initrd
