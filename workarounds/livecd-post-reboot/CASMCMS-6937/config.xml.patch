@@ -1,0 +1,73 @@
+--- image-recipe-orig/config.xml	2021-02-25 22:10:31.071648282 +0000
++++ image-recipe/config.xml	2021-04-28 16:12:46.838290792 +0000
+@@ -46,27 +46,26 @@
+     Repositories are added dynamically based on if the build is being done in the
+     pipeline (CJE) or on the Shasta system (Shasta)
+     -->
+-    
+         <!-- SUSE SLE15sp1 packages, Nexus repo -->
+-        <repository type="rpm-md" alias="mirror-sle-15sp1-all-products" priority="4" imageinclude="true">
+-            <source path="https://packages.local/repository/mirror-sle-15sp1-all-products/"/>
++        <repository type="rpm-md" alias="SUSE-SLE-Module-Basesystem-15-SP1-x86_64-Pool" priority="4" imageinclude="true">
++            <source path="https://packages.local/repository/SUSE-SLE-Module-Basesystem-15-SP1-x86_64-Pool/"/>
+         </repository>
+-    
++
+         <!-- SUSE SLE15sp1 packages, Nexus repo -->
+-        <repository type="rpm-md" alias="mirror-sle-15sp1-all-updates" priority="4" imageinclude="true">
+-            <source path="https://packages.local/repository/mirror-sle-15sp1-all-updates/"/>
++        <repository type="rpm-md" alias="SUSE-SLE-Module-Basesystem-15-SP1-x86_64-Updates" priority="4" imageinclude="true">
++            <source path="https://packages.local/repository/SUSE-SLE-Module-Basesystem-15-SP1-x86_64-Updates/"/>
+         </repository>
+-    
+-        <!-- Cray CSM SLES15sp1 CN, Nexus repo -->
+-        <repository type="rpm-md" alias="csm-sle-15sp1-compute" priority="3" imageinclude="true">
+-            <source path="https://packages.local/repository/csm-sle-15sp1-compute/"/>
++
++        <!-- SUSE SLE15sp1 packages, Nexus repo -->
++        <repository type="rpm-md" alias="SUSE-SLE-Product-SLES-15-SP1-x86_64-Pool" priority="4" imageinclude="true">
++            <source path="https://packages.local/repository/SUSE-SLE-Product-SLES-15-SP1-x86_64-Pool/"/>
+         </repository>
+-    
+-        <!-- Cray COS SLES15sp1 CN, Nexus repo -->
+-        <repository type="rpm-md" alias="cos-1.4.0-sle-15sp1-compute" priority="3" imageinclude="true">
+-            <source path="https://packages.local/repository/cos-1.4-sle-15sp1-compute/"/>
++
++        <!-- SUSE SLE15sp1 packages, Nexus repo -->
++        <repository type="rpm-md" alias="SUSE-SLE-Product-SLES-15-SP1-x86_64-Updates" priority="4" imageinclude="true">
++            <source path="https://packages.local/repository/SUSE-SLE-Product-SLES-15-SP1-x86_64-Updates/"/>
+         </repository>
+-    
++
+ 
+     <packages type="image">
+         <package name="checkmedia"/>
+@@ -96,8 +95,6 @@
+         <package name="binutils"/>
+         <package name="cmake"/>
+         <package name="cpupower"/>
+-        <package name="cray-squashfs-dracut"/>
+-        <package name="cray-system-files"/>
+         <package name="curl"/>
+         <package name="device-mapper"/>
+         <package name="dmidecode"/>
+@@ -105,19 +102,6 @@
+         <package name="file"/>
+         <package name="filesystem"/>
+         <package name="timezone"/>
+-        <!-- dracut dependencies -->
+-        <package name="nfs-utils"/>
+-        <package name="rpcbind"/>
+-	<package name="cray-tokens-dracut"/>
+-    </packages>
+-    <packages type="iso">
+-        <package name="branding-SLE"/>
+-        <package name="dracut-kiwi-live"/>
+-    </packages>
+-    <packages type="oem">
+-        <package name="branding-SLE"/>
+-        <package name="dracut-kiwi-oem-repart"/>
+-        <package name="dracut-kiwi-oem-dump"/>
+     </packages>
+     <packages type="bootstrap">
+         <package name="udev"/>

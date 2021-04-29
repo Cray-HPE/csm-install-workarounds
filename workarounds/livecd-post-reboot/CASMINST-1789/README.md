@@ -2,7 +2,7 @@
 
 Tune sysctl for better TCP memory.
 
-This is necessary to prevent the error: `"TCP: out of memory -- consider tuning tcp_mem"`
+This is necessary to prevent the kernel error: `TCP: out of memory -- consider tuning tcp_mem`
 
 ## Directions
 
