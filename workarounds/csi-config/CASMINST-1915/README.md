@@ -7,7 +7,7 @@ results on the generated `sls_input_file.json`.
 1. Verify the generated SLS file has the expected HMS SubRole for the application nodes in the system:
 > Ensure that the environment variable `SYSTEM_NAME` is set.
 ```bash
-pit# cat /mnt/pitdata/prep/${SYSTEM_NAME}/sls_input_file.json | jq -c '.Hardware[] | select(.ExtraProperties.Role == "Application") | { Xname: .Xname, Role: .ExtraProperties.Role, SubRole: .ExtraProperties.SubRole, Aliases: .ExtraProperties.Aliases }' 
+linux# cat /mnt/pitdata/prep/${SYSTEM_NAME}/sls_input_file.json | jq -c '.Hardware[] | select(.ExtraProperties.Role == "Application") | { Xname: .Xname, Role: .ExtraProperties.Role, SubRole: .ExtraProperties.SubRole, Aliases: .ExtraProperties.Aliases }' 
 ```
 
 The above command will output something like the following:

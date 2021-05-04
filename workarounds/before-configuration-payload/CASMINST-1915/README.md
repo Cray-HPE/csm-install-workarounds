@@ -16,12 +16,12 @@ that would treated as UAN Application Nodes that have the `ln` source prefix. If
 expected to become application nodes, proceed with the WAR. Otherwise if all of the nodes found are expected to become
 UAN application nodes (or nothing has been found) the rest of this WAR can be skipped.
   ```bash
-  pit# cat /mnt/pitdata/prep/hmn_connections.json | jq -r '.[].Source' | grep -i '^ln'
+  linux# cat /mnt/pitdata/prep/hmn_connections.json | jq -r '.[].Source' | grep -i '^ln'
   ```
 
   For example the following `lnet` nodes would be treated at UAN application nodes, which is not desired.
   ```bash
-  pit# cat /mnt/pitdata/prep/hmn_connections.json | jq -r '.[].Source' | grep -i '^ln'
+  linux# cat /mnt/pitdata/prep/hmn_connections.json | jq -r '.[].Source' | grep -i '^ln'
   lnet02
   lnet01
   ```
