@@ -2,25 +2,27 @@
 
 The NMN and UAI Macvlan subnets have overlapping subnets with the same VLanID
 
-1. Go to the directory where CSI generated its configs. This will be under `"/mnt/pitdata/prep/${SYSTEM_NAME}"`
+1. Go to the directory where CSI generated its configs. This shouid be `/mnt/pitdata/prep/${SYSTEM_NAME}`
     > Ensure that the environment variable `SYSTEM_NAME` is set
-    ```
-    cd /mnt/pitdata/prep/${SYSTEM_NAME}
+    ```bash
+    linux# cd /mnt/pitdata/prep/${SYSTEM_NAME}
     ```
 2. Copy off the original SLS file
-    ```
-    cp sls_input_file.json sls_input_file.json.original
+    ```bash
+    linux# cp sls_input_file.json sls_input_file.json.original
     ```
 3. Reformat the SLS file so it is readable
-    ```
-    cat sls_input_file.json.original | jq . > sls_input_file.json
+    ```bash
+    linux# cat sls_input_file.json.original | jq . > sls_input_file.json
     ```
 4. Make another copy to use for comparison latter
+    ```bash
+    linux# cp sls_input_file.json sls_input_file.json.original.pretty
     ```
-    cp sls_input_file.json sls_input_file.json.original.pretty
-    ```
-5. Edit the NMN uai_macvlan subnet to use VLan 20 instead of VLan 2 in the `sls_input_file.json`. This value can be found under `.Networks.NMN.ExtraProperties.Subnets[].VlanID`. Make sure to edit the subnet with the name `uai_macvlan`
-    The following block:
+5. Edit `sls_input_file.json`, changing the NMN `uai_macvlan` subnet to use `VlanID` 20 instead of `VlanID` 2.
+    This value can be found under `.Networks.NMN.ExtraProperties.Subnets[].VlanID`. 
+    Make sure to edit the subnet with the name `uai_macvlan`
+    Change the `VlanID` from 2 to 20 in the following block:
     ```json
             "Name": "uai_macvlan",
             "VlanID": 2,
@@ -30,7 +32,7 @@ The NMN and UAI Macvlan subnets have overlapping subnets with the same VLanID
         }
     ]
     ```
-    To
+    After the change, it should look like:
     ```json
             "Name": "uai_macvlan",
             "VlanID": 20,
@@ -41,14 +43,14 @@ The NMN and UAI Macvlan subnets have overlapping subnets with the same VLanID
     ]
     ```
 6. Compare the edited `sls_input_file.json` file with the readable version of the original SLS file:
-    ```
-    # diff sls_input_file.json.original.pretty sls_input_file.json
+    ```bash
+    linux# diff sls_input_file.json.original.pretty sls_input_file.json
     1401c1401
     <             "VlanID": 2,
     ---
     >             "VlanID": 20,
     ```
-7. Lastly verify that the `sls_input_file.json` is valid json:
-    ```
-    # cat sls_input_file.json | jq
+7. Finally, verify that `sls_input_file.json` is valid json:
+    ```bash
+    linux# cat sls_input_file.json | jq
     ```
