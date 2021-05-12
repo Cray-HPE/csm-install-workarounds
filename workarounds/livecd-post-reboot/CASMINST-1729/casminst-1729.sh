@@ -12,7 +12,7 @@ sysctl net.ipv4.neigh.default.gc_stale_time=240'
 
 # persistence
 
-pdsh -b -w ncn-w003 '
+pdsh -b -w $(grep -oP 'ncn-\w\d+' /etc/hosts | sort -u |  tr -t '\n' ',') '
 echo "net.ipv4.neigh.default.gc_thresh1=2048" > /etc/sysctl.d/999-ipv4-neigh.conf && \
 echo "net.ipv4.neigh.default.gc_thresh2=4096" >> /etc/sysctl.d/999-ipv4-neigh.conf && \
 echo "net.ipv4.neigh.default.gc_thresh3=8192" >> /etc/sysctl.d/999-ipv4-neigh.conf && \
