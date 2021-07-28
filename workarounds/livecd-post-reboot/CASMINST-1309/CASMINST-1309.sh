@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Restart Kea so it doesn't just push the stale entry back in after we delete it.
+# Restart Kea so it does not just push the stale entry back in after we delete it.
 kubectl -n services rollout restart deployment cray-dhcp-kea
 
 ncns=$(curl -s -k -H "Authorization: Bearer ${TOKEN}" "https://api-gw-service-nmn.local/apis/sls/v1/search/hardware?extra_properties.Role=Management" | jq -r '.[] | ."ExtraProperties" | ."Aliases" | .[]')
@@ -22,7 +22,7 @@ for bmc in $bmcs; do
   for ip in $bad_ips; do
     id=$(curl -s -k -H "Authorization: Bearer ${TOKEN}" "https://api-gw-service-nmn.local/apis/smd/hsm/v2/Inventory/EthernetInterfaces?IPAddress=$ip" | jq -r '.[] | ."ID"')
 
-    # Make sure ID isn't blank.
+    # Make sure ID is not blank.
     if [ -z "$id" ]
     then
       echo "$id blank when trying to find an owner for IP $ip!"
