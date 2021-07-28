@@ -1,6 +1,6 @@
 # CASMINST-1735
 
-This fixes SAT tools by shimming the NCN's own sshd_config into place.
+This fixes SAT tools by shimming the NCN's own `sshd_config` into place.
 
 ## Directions
 

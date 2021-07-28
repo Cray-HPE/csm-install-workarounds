@@ -25,5 +25,5 @@ The above command will output something like the following:
 
 > If you do not see an SubRole or aliases for an application node, additional configuration may be required in the 
 > `application_node_config.yaml` file. See `308-APPLICATION-NODE-CONFIG`. After making needed adjustments to this file,
-> you'll need to rerun `csi config init` with the required arguments. If you did not previously have an application 
+> you will need to rerun `csi config init` with the required arguments. If you did not previously have an application 
 > node config file it can be specified via the `--application-node-config-yaml` flag.

@@ -9,7 +9,7 @@ ncns=$(curl -s -k -H "Authorization: Bearer ${TOKEN}" \
   jq -r '.[] | ."ExtraProperties" | ."Aliases" | .[]' | sort)
 
 declare -A vlans_to_check
-# Don't be tempted to add vlan002 to this list without more checking as there are things like VIPs that should not be
+# Do not be tempted to add vlan002 to this list without more checking as there are things like VIPs that should not be
 # removed!
 vlans_to_check['vlan004']='hmn'
 vlans_to_check['vlan007']='can'

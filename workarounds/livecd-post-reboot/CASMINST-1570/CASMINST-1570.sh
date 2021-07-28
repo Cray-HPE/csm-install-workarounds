@@ -4,7 +4,7 @@ TOKEN=$(curl -s -k -S -d grant_type=client_credentials -d client_id=admin-client
 URL="https://api_gw_service.local/apis/sls/v1/networks"
 
 function on_error() {
-  echo "Error: $1.  Exiting"
+  echo "Error: $1. Exiting"
   exit 1
 }
 

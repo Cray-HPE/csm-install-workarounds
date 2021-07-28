@@ -54,7 +54,7 @@ Getting kernel from s3 (http://rgw-vip.nmn/ncn-images/k8s-kernel)...
                                  Dload  Upload   Total   Spent    Left  Speed
 100 8344k  100 8344k    0     0   262M      0 --:--:-- --:--:-- --:--:--  271M
 Examining /metal/boot/boot/initrd.img.xz...initrd.img.xz is OK.
-The new on-disk boot artifacts won't take effect until a restart of the machine.
+The new on-disk boot artifacts will not take effect until a restart of the machine.
 ```
 
 Behavior with bad artifacts (XML error messages in boot artifact files).
@@ -79,7 +79,7 @@ Getting initrd.img.xz from s3 (http://rgw-vip.nmn/ncn-images/k8s-initrd.img.xz).
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
 100 50.0M  100 50.0M    0     0   537M      0 --:--:-- --:--:-- --:--:--  537M
-The new on-disk boot artifacts won't take effect until a restart of the machine.
+The new on-disk boot artifacts will not take effect until a restart of the machine.
 ncn-m002:~ # mount -L BOOTRAID -T /etc/fstab.metal ; ls -l /metal/boot/boot/
 total 59576
 drwxr-xr-x 4 root root     4096 May  4 16:09 grub2

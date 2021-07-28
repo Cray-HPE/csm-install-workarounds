@@ -14,7 +14,7 @@ Run the following command **from ncn-m002**.   ncn-m002 will have the SSH keys i
 ncn-m002# for i in $(grep -oP 'ncn-\w\d+' /etc/hosts | sort -u | grep -v m001);do ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ${i} "systemctl start goss-servers";done 
 ```
 
-Run this command to check the status.  Make sure they all return "running".
+Run this command to check the status. Make sure they all return `running`.
 
 ```bash
 ncn-m002# for i in $(grep -oP 'ncn-\w\d+' /etc/hosts | sort -u | grep -v m001);do ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ${i} "systemctl status goss-servers | grep Active";done 
@@ -29,7 +29,7 @@ You can run the following command on m001 after it has been booted into its NCN 
 ncn-m001# pdsh -b -w $(grep -oP 'ncn-\w\d+' /etc/hosts | sort -u |  tr -t '\n' ',') 'systemctl start goss-servers' 
 ```
 
-Run this command to check the status.  Make sure they all return "running".
+Run this command to check the status. Make sure they all return `running`.
 
 ```bash
 ncn-m001# pdsh -b -w $(grep -oP 'ncn-\w\d+' /etc/hosts | sort -u |  tr -t '\n' ',') 'systemctl status goss-servers | grep Active'

@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Work-ARound patch for NETETH-1275. Please run this script to address the problem
+# Workaround patch for NETETH-1275. Please run this script to address the problem
 
 file_to_patch=/opt/cray/cray-network-config/default/bin/shasta-network-lldp.sh
 
