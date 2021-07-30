@@ -32,7 +32,7 @@ done
 Then, run the script:
 
 ```bash
-pdsh -b -S -w $(grep -oP 'ncn-\w\d+' /etc/hosts | sort -u | grep -v ncn-m001 |  tr -t '\n' ' ') '/opt/cray/csm/workarounds/livecd-post-reboot/CASMINST-2689/CASMINST-2689.sh'
+pdsh -b -S -w $(grep -oP 'ncn-\w\d+' /etc/hosts | sort -u | grep -v ncn-m001 |  tr -t '\n' ',') '/opt/cray/csm/workarounds/livecd-post-reboot/CASMINST-2689/CASMINST-2689.sh'
 ```
 
 ## Output
