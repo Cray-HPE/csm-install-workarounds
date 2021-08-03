@@ -7,7 +7,7 @@ After a CSM 0.9.3 install, the kernel and initrd files copied into `/run/initram
 Run the script on m001 if it is no longer the PIT (post-handoff)
 
 ```bash
-./CASMINST-2689/CASMINST-2689.sh
+/opt/cray/csm/workarounds/livecd-post-reboot/CASMINST-2689/CASMINST-2689.sh
 ```
 
 Copy the script to each node (adjusting the number of NCNs if needed):
@@ -16,7 +16,9 @@ Copy the script to each node (adjusting the number of NCNs if needed):
 for i in $(grep -oP 'ncn-\w\d+' /etc/hosts | sort -u | grep -v ncn-m001 |  tr -t '\n' ' ')
 do
   ssh $i 'mkdir -pv /opt/cray/csm/workarounds/livecd-post-reboot/'
-  scp -r ./CASMINST-2689/ $i:/opt/cray/csm/workarounds/livecd-post-reboot/
+  pushd /opt/cray/csm/workarounds/livecd-post-reboot/ || exit 1
+    scp -r ./CASMINST-2689/ $i:/opt/cray/csm/workarounds/livecd-post-reboot/
+  popd || exit 1  
 done
 ```
 
