@@ -2,6 +2,7 @@
 Name: csm-install-workarounds
 License: MIT License
 Summary: Workarounds necessary for the CSM product
+BuildArchitectures: noarch
 Version: %(cat .version)
 Release: %(echo ${BUILD_METADATA})
 Source: %{name}-%{version}.tar.bz2
