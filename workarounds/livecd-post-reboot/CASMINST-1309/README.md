@@ -82,26 +82,33 @@ This procedure is always safe to run.
     message = "deleted 1 entry"
     ```
 
-3. After waiting a few minutes for DNS to settle, there should be only one IP address present for each of the affected BMCs, for both their xname hostname and alias. Verify this for all affected BMCs.
-    The NCN BMC xname hostname should only have 1 address:
-    ```bash
-    ncn-m001# nslookup x3000c0s4b0
-    Server:		10.92.100.225
-    Address:	10.92.100.225#53
+3. Verify that there is exactly one IP address reported for all NCN BMCs.
 
-    Name:	x3000c0s4b0.hmn
-    Address: 10.254.1.13
-    ```
+    After DNS has had time to settle, there should be only one IP address present for each of the affected BMCs, for both their xname hostname and alias. This can take as long as 10 minutes, but often happens faster.
+    
+    **For each NCN BMC**, verify the following:
+    
+    1. The NCN BMC xname hostname should have exactly one address:
 
-    The NCN BMC alias should only have 1 address:
-    ```bash
-    ncn-m001# nslookup ncn-w001-mgmt
-    Server:		10.92.100.225
-    Address:	10.92.100.225#53
+        ```bash
+        ncn-m001# nslookup x3000c0s4b0
+        Server:		10.92.100.225
+        Address:	10.92.100.225#53
 
-    Name:	ncn-w001-mgmt
-    Address: 10.254.1.13
-    ```
+        Name:	x3000c0s4b0.hmn
+        Address: 10.254.1.13
+        ```
+
+    2. The NCN BMC alias should have exactly one address:
+
+        ```bash
+        ncn-m001# nslookup ncn-w001-mgmt
+        Server:		10.92.100.225
+        Address:	10.92.100.225#53
+
+        Name:	ncn-w001-mgmt
+        Address: 10.254.1.13
+        ```
 
 4. Each of the affected BMCs should now be pingable by its xname hostname and alias. Verify this for all affected BMCs.
     ```bash
