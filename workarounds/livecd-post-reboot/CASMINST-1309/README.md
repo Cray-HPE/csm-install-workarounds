@@ -1,10 +1,13 @@
 # WORKAROUND: NCN BMCs receiving alternate IP address from DHCP
 
-At the conclusion of the CSM install, there is an issue where the management NCN BMCs could have both a static IP, and a 
-DHCP assigned IP address. This affects our ability to power cycle management NCNs via CAPMC and apply firmware changes 
-via FAS. The following temporary procedure corrects this until a permanent fix is in place.
+At the conclusion of the CSM install, there is an issue where the management NCN BMCs could have both a static IP address and a 
+DHCP-assigned IP address. This affects the ability to power cycle management NCNs using CAPMC and apply firmware changes using
+FAS. The following temporary procedure corrects this until a permanent fix is in place.
 
-This manifests as the NCN BMC is no longer reached by its xname such as `x3000c0s4b0`, and the NCN BMC alias has multiple IP addresses:
+The symptoms of this problem are:
+* The NCN BMC is no longer reached by its xname (such as `x3000c0s4b0`)
+* The NCN BMC alias has multiple IP addresses
+
 ```
 ncn-m001:~ # nslookup ncn-w001-mgmt
 Server:		10.92.100.225
@@ -18,7 +21,7 @@ Address: 10.254.1.13
 
 This procedure is always safe to run.
 
-1. Get an API Token
+1. Get an API token
     ```bash
     ncn-m001# export TOKEN=$(curl -s -S -d grant_type=client_credentials \
                           -d client_id=admin-client \
@@ -26,7 +29,7 @@ This procedure is always safe to run.
                           https://api-gw-service-nmn.local/keycloak/realms/shasta/protocol/openid-connect/token | jq -r '.access_token')
     ```
 
-2. Run the `CASMINST-1309.sh` script:
+2. Run the `CASMINST-1309.sh` script
     ```bash
     ncn-m001# /opt/cray/csm/workarounds/livecd-post-reboot/CASMINST-1309/CASMINST-1309.sh
     deployment.apps/cray-dhcp-kea restarted
@@ -79,28 +82,35 @@ This procedure is always safe to run.
     message = "deleted 1 entry"
     ```
 
-3. Wait a few minutes for DNS to settle and only 1 IP address should be present for each of the affected BMC for both their xname hostname and alias. Verify this for all affected BMCs.
-    The NCN BMC xname hostname should only have 1 address:
-    ```bash
-    ncn-m001# nslookup x3000c0s4b0
-    Server:		10.92.100.225
-    Address:	10.92.100.225#53
+3. Verify that there is exactly one IP address reported for all NCN BMCs.
 
-    Name:	x3000c0s4b0.hmn
-    Address: 10.254.1.13
-    ```
+    After DNS has had time to settle, there should be only one IP address present for each of the affected BMCs, for both their xname hostname and alias. This can take as long as 10 minutes, but often happens faster.
+    
+    **For each NCN BMC**, verify the following:
+    
+    1. The NCN BMC xname hostname should have exactly one address:
 
-    The NCN BMC alias should only have 1 address:
-    ```bash
-    ncn-m001# nslookup ncn-w001-mgmt
-    Server:		10.92.100.225
-    Address:	10.92.100.225#53
+        ```bash
+        ncn-m001# nslookup x3000c0s4b0
+        Server:		10.92.100.225
+        Address:	10.92.100.225#53
 
-    Name:	ncn-w001-mgmt
-    Address: 10.254.1.13
-    ```
+        Name:	x3000c0s4b0.hmn
+        Address: 10.254.1.13
+        ```
 
-4. All of the affected BMCs should now be pingable by its xname hostname and NCN BMC alias. Verify this for all affected BMCs.
+    2. The NCN BMC alias should have exactly one address:
+
+        ```bash
+        ncn-m001# nslookup ncn-w001-mgmt
+        Server:		10.92.100.225
+        Address:	10.92.100.225#53
+
+        Name:	ncn-w001-mgmt
+        Address: 10.254.1.13
+        ```
+
+4. Each of the affected BMCs should now be pingable by its xname hostname and alias. Verify this for all affected BMCs.
     ```bash
     ncn-m001# ping x3000c0s4b0
     PING x3000c0s4b0.hmn (10.254.1.13) 56(84) bytes of data.
