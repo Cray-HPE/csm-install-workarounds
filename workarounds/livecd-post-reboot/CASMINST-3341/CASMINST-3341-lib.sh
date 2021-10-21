@@ -39,7 +39,6 @@ cleanup() {
     rm -rf /tmp/ktmp/
   fi
 
-  systemctl disable kdump-cray
 }
 
 # check_size() offers a CAUTION message if the initrd is larger then 20MB
